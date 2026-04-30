@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rejoindre — Opus FSSM</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .page-hero {
+      background: var(--red);
+      padding: 80px 32px 64px;
+      text-align: center;
+    }
+    .page-hero .eyebrow { color: var(--gold); }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--cream);
+      margin: 8px 0;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold); }
+    .page-hero p {
+      font-size: 16px;
+      color: rgba(246,246,233,0.6);
+      max-width: 500px;
+      margin: 16px auto 0;
+    }
+
+    
+    .join-main {
+      padding: var(--section-pad);
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+    }
+
+    
+    .join-pitch {
+      flex: 1;
+    }
+    .join-pitch h2 {
+      font-family: var(--font-display);
+      font-size: 38px;
+      color: var(--red);
+      margin: 8px 0 16px;
+      line-height: 1.15;
+    }
+    .join-pitch p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 19.2px;
+    }
+    .pitch-reasons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .pitch-reason {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .reason-icon {
+      width: 36px; height: 36px;
+      background: rgba(203,136,74,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      border: 1px solid rgba(203,136,74,0.25);
+    }
+    .reason-text h4 {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--red);
+      margin-bottom: 2px;
+    }
+    .reason-text p {
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    
+    .join-form-wrap {
+      flex: 1.2;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: 0 8px 40px rgba(123,2,4,0.06);
+    }
+    .join-form-wrap h3 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      color: var(--red);
+      margin-bottom: 4.8px;
+    }
+    .join-form-wrap .form-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    
+    .form-group {
+      margin-bottom: 22.4px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .form-group label span.required { color: var(--red); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-dark);
+      background: var(--cream);
+      transition: border-color var(--transition);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group input.error,
+    .form-group select.error,
+    .form-group textarea.error {
+      border-color: #c0392b;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+    .form-row {
+      display: flex;
+      gap: 16px;
+    }
+    .form-row .form-group { flex: 1; }
+
+    
+    .error-msg {
+      display: none;
+      font-size: 12px;
+      color: #c0392b;
+      margin-top: 4px;
+    }
+    .error-msg.show { display: block; }
+
+    
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 9.6px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .checkbox-item input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--red);
+      cursor: pointer;
+    }
+
+    
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--red);
+      color: var(--cream);
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      margin-top: 8px;
+    }
+    .form-submit:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .form-submit:active { transform: translateY(0); }
+
+    
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .success-msg.show { display: block; }
+    .success-icon {
+      font-size: 52px;
+      margin-bottom: 16px;
+    }
+    .success-msg h3 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+    .success-msg p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    
+    .contact-section {
+      padding: var(--section-pad);
+      background: var(--red);
+    }
+    .contact-section .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .contact-section .eyebrow { color: var(--gold); }
+    .contact-section .section-title { color: var(--cream); margin-bottom: 24px; }
+    .contact-info {
+      flex: 1;
+      min-width: 220px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 19.2px;
+    }
+    .contact-item-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .contact-item-text h4 {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 3px;
+      font-weight: 500;
+    }
+    .contact-item-text p, .contact-item-text a {
+      font-size: 14px;
+      color: rgba(246,246,233,0.7);
+      line-height: 1.6;
+    }
+    .contact-item-text a:hover { color: var(--cream); }
+
+    
+    .faq-section {
+      padding: var(--section-pad);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 19.2px 0;
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--red);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color var(--transition);
+    }
+    .faq-question:hover { color: var(--gold); }
+    .faq-arrow {
+      font-size: 18px;
+      transition: transform var(--transition);
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; }
+    .faq-answer p {
+      padding-bottom: 19.2px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 768px) {
+      .join-main { flex-direction: column; gap: 32px; }
+      .form-row { flex-direction: column; gap: 0; }
+      .page-hero h1 { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo-gold.png" alt="Opus FSSM" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="about.html">À Propos</a></li>
+      <li><a href="activities.html">Activités</a></li>
+      <li><a href="events.html">Événements</a></li>
+      <li><a href="join.html" class="active">Rejoindre</a></li>
+    </ul>
+    <a href="join.html" class="nav-cta">Rejoindre</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Accueil</a>
+    <a href="about.html">À Propos</a>
+    <a href="activities.html">Activités</a>
+    <a href="events.html">Événements</a>
+    <a href="join.html">Rejoindre le Club</a>
+  </div>
+
+  <main>
+
+    
+    <section class="page-hero">
+      <p class="eyebrow">Devenir membre</p>
+      <h1>Rejoindre <em>Opus</em></h1>
+      <p>Remplissez le formulaire ci-dessous et faites partie de l'aventure musicale d'Opus FSSM.</p>
+    </section>
+
+    
+    <section class="join-main">
+
+      
+      <div class="join-pitch fade-in">
+        <p class="eyebrow">Pourquoi nous rejoindre</p>
+        <h2>Votre place vous attend.</h2>
+        <div class="divider"></div>
+        <p>
+          Opus est bien plus qu'un club — c'est une communauté. En rejoignant, vous accédez à des ateliers, des performances, un réseau d'étudiants passionnés, et des opportunités de vous produire sur scène.
+        </p>
+        <div class="pitch-reasons">
+          <div class="pitch-reason">
+            <div class="reason-icon">🎵</div>
+            <div class="reason-text">
+              <h4>Progresser musicalement</h4>
+              <p>Ateliers, répétitions encadrées et feedback régulier pour développer votre niveau.</p>
+            </div>
+          </div>
+          <div class="pitch-reason">
+            <div class="reason-icon">🎭</div>
+            <div class="reason-text">
+              <h4>Monter sur scène</h4>
+              <p>Des concerts et événements réguliers pour vous exprimer devant un vrai public.</p>
+            </div>
+          </div>
+          <div class="pitch-reason">
+            <div class="reason-icon">🤝</div>
+            <div class="reason-text">
+              <h4>Rejoindre une communauté</h4>
+              <p>Des liens durables, une ambiance bienveillante, et une famille musicale au campus.</p>
+            </div>
+          </div>
+          <div class="pitch-reason">
+            <div class="reason-icon">🏆</div>
+            <div class="reason-text">
+              <h4>Représenter la FSSM</h4>
+              <p>Participez aux compétitions inter-universitaires et portez les couleurs de votre faculté.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="join-form-wrap fade-in">
+        
+        <div id="formContainer">
+          <h3>Formulaire de candidature</h3>
+          <p class="form-subtitle">Tous les champs marqués <span style="color:var(--red);">*</span> sont obligatoires.</p>
+
+          <form id="joinForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="prenom">Prénom <span class="required">*</span></label>
+                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" />
+                <span class="error-msg" id="err-prenom">Veuillez entrer votre prénom.</span>
+              </div>
+              <div class="form-group">
+                <label for="nom">Nom <span class="required">*</span></label>
+                <input type="text" id="nom" name="nom" placeholder="Votre nom" />
+                <span class="error-msg" id="err-nom">Veuillez entrer votre nom.</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email universitaire <span class="required">*</span></label>
+              <input type="email" id="email" name="email" placeholder="exemple@uca.ac.ma" />
+              <span class="error-msg" id="err-email">Veuillez entrer un email valide.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="telephone">Téléphone <span class="required">*</span></label>
+              <input type="tel" id="telephone" name="telephone" placeholder="06XXXXXXXX" />
+              <span class="error-msg" id="err-telephone">Veuillez entrer un numéro de téléphone.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="filiere">Filière / Spécialité <span class="required">*</span></label>
+              <select id="filiere" name="filiere">
+                <option value="">-- Sélectionnez votre filière --</option>
+                <option value="mi">MI</option>
+                <option value="iap">IAP</option>
+                <option value="pc">PC</option>
+                <option value="bg">BG</option>
+                <option value="autre">Autre</option>
+              </select>
+              <span class="error-msg" id="err-filiere">Veuillez sélectionner votre filière.</span>
+            </div>
+
+            <div class="form-group">
+              <label>Activités souhaitées <span class="required">*</span></label>
+              <div class="checkbox-group" id="activitesGroup">
+                <label class="checkbox-item">
+                  <input type="checkbox" name="activites" value="choeur" /> Chœur & Chant
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="activites" value="guitare" /> Guitare
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="activites" value="piano" /> Piano
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="activites" value="autres-instruments" /> Autres instruments
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="activites" value="performance" /> Performance & Scène
+                </label>
+              </div>
+              <span class="error-msg" id="err-activites">Cochez au moins une activité.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="niveau">Niveau musical</label>
+              <select id="niveau" name="niveau">
+                <option value="">-- Votre niveau --</option>
+                <option value="debutant">Débutant</option>
+                <option value="intermediaire">Intermédiaire</option>
+                <option value="avance">Avancé</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="motivation">Motivation <span class="required">*</span></label>
+              <textarea id="motivation" name="motivation" placeholder="Parlez-nous de vous et de votre passion pour la musique..."></textarea>
+              <span class="error-msg" id="err-motivation">Veuillez écrire votre motivation (min. 20 caractères).</span>
+            </div>
+
+            <button type="submit" class="form-submit">Envoyer ma candidature →</button>
+          </form>
+        </div>
+
+        
+        <div class="success-msg" id="successMsg">
+          <div class="success-icon">🎵</div>
+          <h3>Candidature envoyée !</h3>
+          <p>
+            Merci de votre intérêt pour le club Opus. Nous avons bien reçu votre candidature et nous vous contacterons très prochainement par email.
+          </p>
+          <p style="margin-top:16px; font-size:12px; color:#aaa;">
+            En attendant, suivez-nous sur Instagram pour ne rien manquer.
+          </p>
+          <a href="events.html" class="btn btn-outline" style="margin-top:24px;">Voir les événements</a>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="contact-section" id="contact">
+      <div class="inner">
+        <div class="contact-info fade-in">
+          <p class="eyebrow">Nous joindre</p>
+          <h2 class="section-title">Contact</h2>
+          <div class="contact-item">
+            <span class="contact-item-icon">📧</span>
+            <div class="contact-item-text">
+              <h4>Email</h4>
+              <a href="mailto:opus.fssmmusicclub@gmail.com">opus.fssmmusicclub@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-icon">📍</span>
+            <div class="contact-item-text">
+              <h4>Adresse</h4>
+              <p>Faculté des Sciences Semlalia<br>Bd Prince My Abdallah, Marrakech</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-icon">📱</span>
+            <div class="contact-item-text">
+              <h4>Réseaux sociaux</h4>
+              <a href="https://www.instagram.com/opus.fssmclub" target="_blank">Instagram : opus.fssmclub</a><br>
+            </div>
+          </div>
+        </div>
+        <div class="contact-info fade-in">
+          <p class="eyebrow">Localisation</p>
+          <h2 class="section-title">Nous trouver</h2>
+          <div style="background: rgba(246,246,233,0.08); border: 1px solid rgba(203,136,74,0.2); border-radius: var(--radius); padding: 32px; text-align: center;">
+            <p style="font-family: var(--font-display); font-style:italic; font-size:18px; color: rgba(246,246,233,0.7); line-height:1.6;">
+              Faculté des Sciences Semlalia
+            </p>
+            <p style="font-size:12px; color: rgba(246,246,233,0.35); margin-top:16px;">
+              <a href="https://maps.app.goo.gl/e7KJxQMjAWsmZwGF9?g_st=com.google.maps.preview.copy" target="_blank" style="color: var(--gold); text-decoration: none;">Voir sur Google Maps</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="faq-section">
+      <p class="eyebrow fade-in">Questions fréquentes</p>
+      <h2 class="section-title fade-in">FAQ</h2>
+      <div class="divider fade-in"></div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Faut-il avoir un niveau musical avancé pour rejoindre Opus ?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>Non, absolument pas. Opus est ouvert à tous les niveaux, des débutants aux musiciens confirmés. Ce qui compte, c'est votre passion et votre envie d'apprendre et de partager.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Quelle est la cotisation pour rejoindre le club ?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>Une cotisation symbolique peut être demandée pour couvrir les frais d'organisation des événements. Les détails vous seront communiqués lors de votre entretien d'admission.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Est-ce que je peux rejoindre Opus même si je ne suis pas étudiant en sciences ?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>Opus est le club de la FSSM et est donc réservé aux étudiants inscrits à la Faculté des Sciences Semlalia. Si vous êtes étudiant dans une autre faculté, contactez-nous directement pour voir les options.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Combien de temps par semaine dois-je consacrer au club ?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>Cela dépend de votre implication. Un membre régulier consacre en moyenne 2 à 4 heures par semaine. Les membres du chœur s'engagent sur les répétitions hebdomadaires</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Quand aura lieu le prochain recrutement ?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>Pour toute information concernant le prochain recrutement, veuillez nous contacter en message privé sur Instagram.</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="assets/images/logo-gold.png" alt="Opus FSSM" />
+        <p class="footer-tagline">Musique &amp; Arts de la Scène</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À Propos</a></li>
+          <li><a href="activities.html">Activités</a></li>
+          <li><a href="events.html">Événements</a></li>
+          <li><a href="join.html">Rejoindre</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Nous contacter</a></li>
+          <li><a href="https://www.instagram.com/opus.fssmclub?igsh=MWFua24yczlhZzJoNQ==" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Club Opus FSSM — Tous droits réservés</span>
+      <span>FSSM, Marrakech</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    
+    var joinForm = document.getElementById('joinForm');
+    var formContainer = document.getElementById('formContainer');
+    var successMsg = document.getElementById('successMsg');
+
+    // Helper: show error
+    function showError(fieldId, errId) {
+      var field = document.getElementById(fieldId);
+      var err   = document.getElementById(errId);
+      if (field) field.classList.add('error');
+      if (err)   err.classList.add('show');
+    }
+    // Helper: clear error
+    function clearError(fieldId, errId) {
+      var field = document.getElementById(fieldId);
+      var err   = document.getElementById(errId);
+      if (field) field.classList.remove('error');
+      if (err)   err.classList.remove('show');
+    }
+
+    // Clear errors on input
+    ['prenom','nom','email','telephone','filiere','motivation'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', function() {
+          clearError(id, 'err-' + id);
+        });
+      }
+    });
+
+    // Validate email format
+    function isValidEmail(val) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    }
+
+    joinForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var valid = true;
+
+      // Prénom
+      var prenom = document.getElementById('prenom').value.trim();
+      if (!prenom) { showError('prenom', 'err-prenom'); valid = false; }
+      else clearError('prenom', 'err-prenom');
+
+      // Nom
+      var nom = document.getElementById('nom').value.trim();
+      if (!nom) { showError('nom', 'err-nom'); valid = false; }
+      else clearError('nom', 'err-nom');
+
+      // Email
+      var email = document.getElementById('email').value.trim();
+      if (!email || !isValidEmail(email)) { showError('email', 'err-email'); valid = false; }
+      else clearError('email', 'err-email');
+
+      // Téléphone
+      var tel = document.getElementById('telephone').value.trim();
+      if (!tel || tel.length < 8) { showError('telephone', 'err-telephone'); valid = false; }
+      else clearError('telephone', 'err-telephone');
+
+      // Filière
+      var filiere = document.getElementById('filiere').value;
+      if (!filiere) { showError('filiere', 'err-filiere'); valid = false; }
+      else clearError('filiere', 'err-filiere');
+
+      // Activités (at least one checkbox)
+      var checkboxes = document.querySelectorAll('input[name="activites"]:checked');
+      var errAct = document.getElementById('err-activites');
+      if (checkboxes.length === 0) {
+        errAct.classList.add('show');
+        valid = false;
+      } else {
+        errAct.classList.remove('show');
+      }
+
+      // Motivation
+      var motiv = document.getElementById('motivation').value.trim();
+      if (!motiv || motiv.length < 20) { showError('motivation', 'err-motivation'); valid = false; }
+      else clearError('motivation', 'err-motivation');
+
+      // If all valid → show success
+      if (valid) {
+        formContainer.style.display = 'none';
+        successMsg.classList.add('show');
+      }
+    });
+
+    
+    var faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(function(item) {
+      var btn = item.querySelector('.faq-question');
+      btn.addEventListener('click', function() {
+        // Close other items
+        faqItems.forEach(function(other) {
+          if (other !== item) other.classList.remove('open');
+        });
+        item.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>

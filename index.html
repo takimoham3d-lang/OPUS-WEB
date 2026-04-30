@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Opus FSSM — Club Musique & Arts de la Scène</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 64px 32px;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+    .hero-text { flex: 1; }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 80px;
+      font-weight: 700;
+      line-height: 1.0;
+      color: var(--cream);
+      margin-bottom: 4.8px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 26px;
+      color: rgba(246,246,233,0.6);
+      margin-bottom: 24px;
+    }
+    .hero-desc {
+      font-size: 15px;
+      color: rgba(246,246,233,0.65);
+      max-width: 420px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-logo {
+      flex-shrink: 0;
+    }
+    .hero-logo img {
+      width: 240px;
+      opacity: 0.92;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(246,246,233,0.35);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px; height: 40px;
+      background: rgba(246,246,233,0.25);
+    }
+
+    
+    .stats-strip {
+      background: var(--gold);
+      padding: 32px;
+    }
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(246,246,233,0.75);
+      margin-top: 4px;
+    }
+
+    
+    .about-preview {
+      padding: var(--section-pad);
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+    }
+    .about-preview-text { flex: 1; }
+    .about-preview-text p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+    .about-preview-visual {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .about-quote-box {
+      background: var(--red);
+      color: var(--cream);
+      padding: 40px;
+      border-radius: var(--radius);
+      max-width: 340px;
+      position: relative;
+    }
+    .about-quote-box::before {
+      content: '"';
+      font-family: var(--font-display);
+      font-size: 100px;
+      color: var(--gold);
+      opacity: 0.3;
+      position: absolute;
+      top: -20px; left: 20px;
+      line-height: 1;
+    }
+    .about-quote-box blockquote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 20px;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+    .about-quote-box cite {
+      display: block;
+      margin-top: 16px;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    
+    .activities-preview {
+      padding: var(--section-pad);
+      background: var(--red);
+    }
+    .activities-preview .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .activities-preview .eyebrow { color: var(--gold); }
+    .activities-preview .section-title { color: var(--cream); }
+    .acts-grid {
+      display: flex;
+      gap: 24px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+    .act-card {
+      flex: 1;
+      min-width: 220px;
+      background: rgba(246,246,233,0.06);
+      border: 1px solid rgba(203,136,74,0.3);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      transition: background var(--transition), transform var(--transition);
+      cursor: default;
+    }
+    .act-card:hover {
+      background: rgba(246,246,233,0.1);
+      transform: translateY(-4px);
+    }
+    .act-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    .act-card h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+    .act-card p {
+      font-size: 13px;
+      color: rgba(246,246,233,0.55);
+      line-height: 1.7;
+    }
+    .act-more {
+      display: inline-block;
+      margin-top: 19.2px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .act-card:hover .act-more { border-color: var(--gold); }
+
+    
+    .next-event {
+      padding: var(--section-pad);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .event-feature {
+      display: flex;
+      align-items: stretch;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 32px;
+    }
+    .event-date-block {
+      background: var(--red);
+      color: var(--cream);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 130px;
+    }
+    .event-date-block .day {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--gold);
+    }
+    .event-date-block .month {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(246,246,233,0.6);
+      margin-top: 4px;
+    }
+    .event-info-block {
+      flex: 1;
+      padding: 32px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .event-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      background: rgba(203,136,74,0.12);
+      color: var(--gold);
+      border: 1px solid rgba(203,136,74,0.3);
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    .event-info-block h3 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+    .event-info-block p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content { flex-direction: column; text-align: center; }
+      .hero-logo { order: -1; }
+      .hero-logo img { width: 140px; }
+      .hero-title { font-size: 52px; }
+      .hero-subtitle { font-size: 20px; }
+      .hero-actions { justify-content: center; }
+      .about-preview { flex-direction: column; }
+      .event-feature { flex-direction: column; }
+      .event-date-block { flex-direction: row; gap: 16px; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo-gold.png" alt="Opus FSSM" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="about.html">À Propos</a></li>
+      <li><a href="activities.html">Activités</a></li>
+      <li><a href="events.html">Événements</a></li>
+      <li><a href="join.html">Rejoindre</a></li>
+    </ul>
+    <a href="join.html" class="nav-cta">Rejoindre</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Accueil</a>
+    <a href="about.html">À Propos</a>
+    <a href="activities.html">Activités</a>
+    <a href="events.html">Événements</a>
+    <a href="join.html">Rejoindre le Club</a>
+  </div>
+
+  <main>
+
+    
+    <section class="hero">
+      <div class="hero-lines">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-text">
+          <p class="hero-eyebrow">Club Musique &amp; Arts de la Scène — FSSM</p>
+          <h1 class="hero-title">Opus<br><em>FSSM</em></h1>
+          <p class="hero-subtitle">Où la musique trouve sa voix.</p>
+          <p class="hero-desc">
+            Un espace dédié aux étudiants passionnés de musique, de chant et des arts de la scène à la Faculté des Sciences Semlalia.
+          </p>
+          <div class="hero-actions">
+            <a href="join.html" class="btn btn-gold">Rejoindre le Club</a>
+            <a href="events.html" class="btn btn-outline" style="border-color: rgba(246,246,233,0.4); color: var(--cream);">Voir les Événements</a>
+          </div>
+        </div>
+        <div class="hero-logo">
+          <img src="assets/images/logo-gold.png" alt="Opus FSSM Logo" />
+        </div>
+      </div>
+      <div class="hero-scroll">Scroll</div>
+    </section>
+
+    
+    <section class="stats-strip">
+      <div class="stats-inner">
+        <div class="stat-item fade-in">
+          <div class="stat-num">60+</div>
+          <div class="stat-label">Membres actifs</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-num">1</div>
+          <div class="stat-label">Années d'existence</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Événements par an</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Passion musicale</div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section style="padding: var(--section-pad);">
+      <div class="about-preview">
+        <div class="about-preview-text fade-in">
+          <p class="eyebrow">Qui sommes-nous</p>
+          <h2 class="section-title">Né de la passion,<br>porté par la musique.</h2>
+          <div class="divider"></div>
+          <p>
+            Opus est le club musique et arts de la scène de la Faculté des Sciences Semlalia. Fondé par des étudiants pour des étudiants, il réunit des chanteurs, instrumentistes et passionnés de la scène dans un seul but : créer, se produire et grandir ensemble.
+          </p>
+          <p>
+            Du chœur aux concerts en passant par les compétitions inter-universitaires, Opus est un espace d'expression artistique libre et ouvert à tous les niveaux.
+          </p>
+          <a href="about.html" class="btn btn-outline" style="margin-top: 8px;">En savoir plus</a>
+        </div>
+        <div class="about-preview-visual fade-in">
+          <div class="about-quote-box">
+            <blockquote>
+              La musique donne une âme à nos cœurs et des ailes à la pensée.
+            </blockquote>
+            <cite>— Platon</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="activities-preview">
+      <div class="inner">
+        <p class="eyebrow">Ce que nous faisons</p>
+        <h2 class="section-title">Nos Activités</h2>
+        <div class="acts-grid">
+          <div class="act-card fade-in">
+            <div class="act-icon">🎵</div>
+            <h3>Chœur & Chant</h3>
+            <p>Arrangements SATB, pièces de compétition et ateliers vocaux pour tous les niveaux. Un espace pour développer votre voix.</p>
+            <a href="activities.html" class="act-more">Découvrir →</a>
+          </div>
+          <div class="act-card fade-in">
+            <div class="act-icon">🎸</div>
+            <h3>Instruments</h3>
+            <p>Guitare, piano, oud et bien plus. Des sessions individuelles et ensemble tout au long de l'année universitaire.</p>
+            <a href="activities.html" class="act-more">Découvrir →</a>
+          </div>
+          <div class="act-card fade-in">
+            <div class="act-icon">🎭</div>
+            <h3>Performances</h3>
+            <p>Concerts en direct, compétitions inter-universitaires et showcases de fin d'année sur les plus belles scènes du campus.</p>
+            <a href="activities.html" class="act-more">Découvrir →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="next-event">
+      <p class="eyebrow fade-in">À venir</p>
+      <h2 class="section-title fade-in">Prochain Événement</h2>
+      <div class="event-feature fade-in">
+        <div class="event-date-block">
+          <span class="day">17</span>
+          <span class="month">Mai 2026</span>
+        </div>
+        <div class="event-info-block">
+          <span class="event-tag">Concert</span>
+          <h3>GNAWA WORKSHOP</h3>
+          <p>📍 CLC, FSSM &nbsp;|&nbsp; 18h00</p>
+          <a href="events.html" class="btn btn-primary" style="align-self: flex-start;">Voir tous les événements</a>
+        </div>
+      </div>
+    </section>
+
+    
+    <section style="background: var(--red); padding: 64px 32px; text-align: center;">
+      <p class="eyebrow" style="color: var(--gold);">Prêt à monter sur scène ?</p>
+      <h2 class="display fade-in" style="font-family: var(--font-display); font-size: 48px; color: var(--cream); margin: 8px 0 16px;">
+        Rejoignez <em style="color: var(--gold); font-style: italic;">Opus</em> dès aujourd'hui.
+      </h2>
+      <p style="color: rgba(246,246,233,0.6); font-size: 15px; margin-bottom: 32px;">
+        Musicien, chanteur ou simplement passionné — il y a une place pour vous.
+      </p>
+      <a href="join.html" class="btn btn-gold">Postuler maintenant</a>
+    </section>
+
+  </main>
+
+  
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="assets/images/logo-gold.png" alt="Opus FSSM" />
+        <p class="footer-tagline">Musique &amp; Arts de la Scène</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À Propos</a></li>
+          <li><a href="activities.html">Activités</a></li>
+          <li><a href="events.html">Événements</a></li>
+          <li><a href="join.html">Rejoindre</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="join.html#contact">Nous contacter</a></li>
+          <li><a href="https://www.instagram.com/opus.fssmclub?igsh=MWFua24yczlhZzJoNQ==" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Club Opus FSSM — Tous droits réservés</span>
+      <span>FSSM, Marrakech</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
