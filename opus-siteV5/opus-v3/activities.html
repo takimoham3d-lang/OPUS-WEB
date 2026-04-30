@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activités — Opus FSSM</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .page-hero {
+      background: var(--red);
+      padding: 80px 32px 64px;
+      text-align: center;
+    }
+    .page-hero .eyebrow { color: var(--gold); }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--cream);
+      margin: 8px 0;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold); }
+    .page-hero p {
+      font-size: 16px;
+      color: rgba(246,246,233,0.6);
+      max-width: 500px;
+      margin: 16px auto 0;
+    }
+
+    
+    .activity-section {
+      padding: var(--section-pad);
+      border-bottom: 1px solid var(--border);
+    }
+    .activity-section .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+    }
+    .activity-section.reverse .inner { flex-direction: row-reverse; }
+    .act-text { flex: 1; }
+    .act-text h2 {
+      font-family: var(--font-display);
+      font-size: 44px;
+      color: var(--red);
+      margin: 8px 0 16px;
+    }
+    .act-text p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+    .act-visual {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .act-visual-box {
+      width: 100%;
+      max-width: 380px;
+      position: relative;
+      padding-bottom: 75%; 
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .act-visual-box-inner {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .act-visual-box.choir .act-visual-box-inner { background: var(--red); }
+    .act-visual-box.instruments .act-visual-box-inner { background: linear-gradient(135deg, #2a0a0b, var(--red)); }
+    .act-visual-box.performance .act-visual-box-inner { background: var(--red-dark); }
+    .act-visual-box .big-icon {
+      font-size: 100px;
+      opacity: 0.25;
+      position: absolute;
+    }
+    .act-visual-box .visual-label {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 28px;
+      color: var(--gold);
+      text-align: center;
+      padding: 16px;
+    }
+
+    
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9.6px;
+      margin: 19.2px 0;
+    }
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .feature-list li::before {
+      content: '♩';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    
+    .schedule-section {
+      padding: var(--section-pad);
+      background: var(--red);
+    }
+    .schedule-section .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .schedule-section .eyebrow { color: var(--gold); }
+    .schedule-section .section-title { color: var(--cream); }
+    .schedule-grid {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .schedule-card {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(246,246,233,0.06);
+      border: 1px solid rgba(203,136,74,0.25);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .schedule-card .day-badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: rgba(203,136,74,0.15);
+      color: var(--gold);
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    .schedule-card h4 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--cream);
+      margin-bottom: 4.8px;
+    }
+    .schedule-card p {
+      font-size: 12px;
+      color: rgba(246,246,233,0.5);
+    }
+
+    
+    .gallery-section {
+      padding: var(--section-pad);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .gallery-grid {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .gallery-item {
+      flex: 1;
+      min-width: 160px;
+      height: 160px;
+      background: var(--red);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      opacity: 0.7;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .gallery-item:hover { opacity: 1; transform: scale(1.03); }
+
+    @media (max-width: 768px) {
+      .activity-section .inner,
+      .activity-section.reverse .inner { flex-direction: column; }
+      .act-visual-box { max-width: 100%; }
+      .page-hero h1 { font-size: 40px; }
+      .act-text h2 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo-gold.png" alt="Opus FSSM" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="about.html">À Propos</a></li>
+      <li><a href="activities.html" class="active">Activités</a></li>
+      <li><a href="events.html">Événements</a></li>
+      <li><a href="join.html">Rejoindre</a></li>
+    </ul>
+    <a href="join.html" class="nav-cta">Rejoindre</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Accueil</a>
+    <a href="about.html">À Propos</a>
+    <a href="activities.html">Activités</a>
+    <a href="events.html">Événements</a>
+    <a href="join.html">Rejoindre le Club</a>
+  </div>
+
+  <main>
+
+    
+    <section class="page-hero">
+      <p class="eyebrow">Ce que nous faisons</p>
+      <h1>Nos <em>Activités</em></h1>
+      <p>Du chœur aux concerts, découvrez tout ce qu'Opus vous offre pour exprimer votre talent.</p>
+    </section>
+
+    
+    <section class="activity-section" id="choeur">
+      <div class="inner">
+        <div class="act-text fade-in">
+          <p class="eyebrow">Activité 01</p>
+          <h2>Chœur & Chant</h2>
+          <div class="divider"></div>
+          <p>
+            Le chœur Opus est le cœur battant du club. Composé de voix sopranos, altos, ténors et basses, il prépare des arrangements SATB pour les compétitions inter-universitaires et les concerts de fin d'année.
+          </p>
+          <p>
+            Encadré par des membres expérimentés et en collaboration avec des professeurs de musique, le chœur offre un cadre sérieux tout en restant accessible à tous les niveaux vocaux.
+          </p>
+          <ul class="feature-list">
+            <li>Arrangements originaux de musiques variées</li>
+            <li>Participation aux compétitions إبداع الطالب</li>
+            <li>Ateliers de technique vocale et de solfège</li>
+          </ul>
+          <a href="join.html" class="btn btn-primary">Rejoindre le chœur</a>
+        </div>
+        <div class="act-visual fade-in">
+          <div class="act-visual-box choir">
+            <div class="act-visual-box-inner">
+              <span class="big-icon">🎵</span>
+              <span class="visual-label">Chœur Opus</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="activity-section reverse" id="instruments">
+      <div class="inner">
+        <div class="act-text fade-in">
+          <p class="eyebrow">Activité 02</p>
+          <h2>Instruments</h2>
+          <div class="divider"></div>
+          <p>
+            Guitare, piano, oud, violon, percussions — les sessions instrumentales d'Opus rassemblent des musiciens de tous horizons. Que vous soyez débutant ou avancé, il y a une place pour vous.
+          </p>
+          <p>
+            Les sessions permettent d'apprendre, de pratiquer en groupe, et de préparer des performances pour les événements du club. La tradition musicale marocaine y côtoie les genres contemporains.
+          </p>
+          <ul class="feature-list">
+            <li>Sessions libres et encadrées en semaine</li>
+            <li>Apprentissage entre pairs et mentoring</li>
+            <li>Maqam arabe et théorie musicale occidentale</li>
+            <li>Jam sessions mensuelles ouvertes au campus</li>
+          </ul>
+          <a href="join.html" class="btn btn-primary">Rejoindre les sessions</a>
+        </div>
+        <div class="act-visual fade-in">
+          <div class="act-visual-box instruments">
+            <div class="act-visual-box-inner">
+              <span class="big-icon">🎸</span>
+              <span class="visual-label">Sessions Instrumentales</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="activity-section" id="performance">
+      <div class="inner">
+        <div class="act-text fade-in">
+          <p class="eyebrow">Activité 03</p>
+          <h2>Performances & Scène</h2>
+          <div class="divider"></div>
+          <p>
+            Monter sur scène est l'aboutissement de tout le travail du club. Opus organise et participe à plusieurs événements tout au long de l'année : concerts campus, compétitions nationales et showcase de fin d'année.
+          </p>
+          <p>
+            Chaque performance est préparée avec soin, de la mise en scène à la direction artistique, pour offrir une expérience mémorable au public et aux artistes.
+          </p>
+          <ul class="feature-list">
+            <li>Compétition nationale إبداع الطالب</li>
+            <li>Événements inter-clubs et collaborations</li>
+            <li>Ateliers de mise en scène et présence scénique</li>
+          </ul>
+          <a href="events.html" class="btn btn-primary">Voir les événements</a>
+        </div>
+        <div class="act-visual fade-in">
+          <div class="act-visual-box performance">
+            <div class="act-visual-box-inner">
+              <span class="big-icon">🎭</span>
+              <span class="visual-label">Scène & Performances</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="schedule-section">
+      <div class="inner">
+        <p class="eyebrow">Organisation</p>
+        <h2 class="section-title">Programme hebdomadaire</h2>
+        <div class="schedule-grid">
+          <div class="schedule-card fade-in">
+            <span class="day-badge">Lundi</span>
+            <h4>XXXXXXX</h4>
+            <p>XXXXXXXX</p>
+          </div>
+          <div class="schedule-card fade-in">
+            <span class="day-badge">Mercredi</span>
+            <h4>XXXXXXX</h4>
+            <p>XXXXX</p>
+          </div>
+          <div class="schedule-card fade-in">
+            <span class="day-badge">Jeudi</span>
+            <h4>XXXXXX</h4>
+            <p>XXXXXX</p>
+          </div>
+          <div class="schedule-card fade-in">
+            <span class="day-badge">Samedi</span>
+            <h4>XXXXXX</h4>
+            <p>XXXXXXXX</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section style="padding: 48px 32px; background: var(--cream);"></section>
+
+  </main>
+
+  
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="assets/images/logo-gold.png" alt="Opus FSSM" />
+        <p class="footer-tagline">Musique &amp; Arts de la Scène</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À Propos</a></li>
+          <li><a href="activities.html">Activités</a></li>
+          <li><a href="events.html">Événements</a></li>
+          <li><a href="join.html">Rejoindre</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="join.html#contact">Nous contacter</a></li>
+          <li><a href="https://www.instagram.com/opus.fssmclub?igsh=MWFua24yczlhZzJoNQ==" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Club Opus FSSM — Tous droits réservés</span>
+      <span>FSSM, Marrakech</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
